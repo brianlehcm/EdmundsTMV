@@ -1,0 +1,738 @@
+FORMAT: 1A
+HOST: http://34.200.114.245
+
+# Systum
+
+Systum API contains set of endpoints for Web & Mobile development.
+
+Production: http://prod-1.systum.com
+
+Development: http://34.200.114.245
+
+## Authenticate [/api/authenticate/]
+### Authentication toget token and userdetails [POST]
+
++ Request (application/json)
+
+        {
+            "username": "testing@email.com",
+            "password": "password"
+        }
+        
++ Response 200 (application/json)
+    
+    + Body
+        
+            {
+              "token": "app_token",
+              "user": {
+                "roles": [
+                  {
+                    "sysid": 3,
+                    "type": "SALES_REP"
+                  },
+                  {
+                    "sysid": 4,
+                    "type": "WAREHOUSE_MANAGER"
+                  },
+                  {
+                    "sysid": 5,
+                    "type": "SALES_MANAGER"
+                  },
+                  {
+                    "sysid": 6,
+                    "type": "MARKETING_MANAGER"
+                  },
+                  {
+                    "sysid": 1,
+                    "type": "ADMIN"
+                  },
+                  {
+                    "sysid": 2,
+                    "type": "CEO"
+                  }
+                ],
+                "imageUrl": "https://systum.s3.amazonaws.com/systum/persons/8CEF888C-A626-2C0B-65BD-568239752BEE.png",
+                "customerOf": [],
+                "stores": [
+                  {
+                    "sysid": 6,
+                    "name": "The Mobile Shop"
+                  }
+                ],
+                "status": "ACTIVE",
+                "company": [
+                  {
+                    "street1": "123 Demo Street",
+                    "status": "ACTIVE",
+                    "city": "Los Angeles",
+                    "taxLocation": "USA",
+                    "country": "United States",
+                    "logoUrl": "",
+                    "locale": "California",
+                    "postCode": "90003",
+                    "url": "www.another.com",
+                    "taxId": "VAT_TAX",
+                    "sysid": 1002,
+                    "name": "Sytum Company"
+                  }
+                ],
+                "sysid": 1002,
+                "email": "sys_fullrole@gmail.com",
+                "phone": "0909099999",
+                "name": "Full Role",
+                "jobTitle": "Full Role"
+              },
+              "lastLogin": null
+            }
+
+## Alerts [/api/alerts/]
+
+### List all alerts for the user's role [GET]
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+        {
+          "orders": [
+            {
+              "dateSent": 1489462253.589548,
+              "currency": "USD",
+              "number": 200123,
+              "total": 10,
+              "sysid": 1798,
+              "status": "PENDING_FULFILLMENT"
+            },
+            {
+              "dateSent": 1489461843.556701,
+              "currency": "USD",
+              "number": 200122,
+              "total": 10,
+              "sysid": 1797,
+              "status": "PENDING_FULFILLMENT"
+            }],
+            "inventory": [
+                {
+                    "items": [
+                    {
+                      "dateCheck": 1473221000.83527,
+                      "quantity": 0,
+                      "sysid": 1384,
+                      "name": null
+                    },
+                    {
+                      "dateCheck": 1473221000.83527,
+                      "quantity": 0,
+                      "sysid": 1383,
+                      "name": null
+                    }]
+                }
+            ]
+        }
+
+## Applicants [/api/applicants/]
+
+### Returns all applications [GET]
+Filter by userId
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+        [
+            {
+            "dateStarted": "2016-09-08T06:15:44.104Z",
+            "status": "IN_PROGRESS",
+            "credit": {
+              "status": "IN_PROGRESS",
+              "sysid": 1002
+            },
+            "marketing": {
+              "status": "IN_PROGRESS",
+              "sysid": 1002
+            },
+            "shipping": {
+              "status": "IN_PROGRESS",
+              "sysid": 1002
+            },
+            "applicant": {
+              "status": "PROSPECT",
+              "email": "bill@billscoss.com",
+              "phone": "54343124",
+              "sysid": 1193,
+              "company": {
+                "sysid": 1180,
+                "name": "Bill's Company"
+              },
+              "name": "YEN"
+            },
+            "sysid": 1002
+        }
+        ]
+
+### Create & returns a new application [POST]
+
++ Request (application/json)
+    
+    + Headers
+    
+            Authorization: Token <api-token>
+    
+    + Body
+
+            {
+                "firstName":"Bill",
+                "lastName":"TestBill",
+                "companyName":"Bill's Company",
+                "email":"bill@billscoss.com",
+                "password":"password",
+                "phone":"54343124",
+                "accounting":"SAGE"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+            "dateStarted": "2017-03-14T15:16:48.117Z",
+            "sysid": 1022,
+            "status": "IN_PROGRESS"
+            }
+
+## Applicant [/api/applicants/{sysid}/]
+
++ Parameters
+    + sysid
+
+### Get applicant by sysid [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+        {
+            "dateStarted": "2016-09-08T06:15:44.104Z",
+            "status": "IN_PROGRESS",
+            "credit": {
+              "status": "IN_PROGRESS",
+              "sysid": 1002
+            },
+            "marketing": {
+              "status": "IN_PROGRESS",
+              "sysid": 1002
+            },
+            "shipping": {
+              "status": "IN_PROGRESS",
+              "sysid": 1002
+            },
+            "applicant": {
+              "status": "PROSPECT",
+              "email": "bill@billscoss.com",
+              "phone": "54343124",
+              "sysid": 1193,
+              "company": {
+                "sysid": 1180,
+                "name": "Bill's Company"
+              },
+              "name": "YEN"
+            },
+            "sysid": 1002
+        }
+
+### Update an application by sysid [POST]
+
++ Request (application/json)
+    
+    + Headers
+    
+            Authorization: Token <api-token>
+    
+    + Body
+
+            {
+                "firstName":"Bill",
+                "lastName":"TestBill",
+                "companyName":"Bill's Company",
+                "email":"bill@billscoss.com",
+                "password":"password",
+                "phone":"54343124",
+                "accounting":"SAGE"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            
+
+    + Body
+
+            {
+            "dateStarted": "2017-03-14T15:16:48.117Z",
+            "sysid": 1022,
+            "status": "IN_PROGRESS"
+            }
+
+## Credit Applicant [/api/applicants/{sysid}/credit-application/]
+
++ Parameters
+    + sysid
+
+### Get credit application [GET]
+Gets credit application associated with the application
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+        {
+            "status": "IN_PROGRESS",
+            "sysid": 1002
+        }
+
+### Update credit application [POST]
+Updates credit application associated with the 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+    
+    + Body
+    
+            {
+               "legalBusinessName":"legalBusinessName",
+               "taxId":"taxId",
+               "dba":"dba",
+               "businessType":"businessType",
+               "primaryContact":"primaryContact",
+               "contactTitle":"contactTitle",
+               "contactPhone":"contactPhone",
+               "contactEmail":"contactEmail",
+               "address":"address",
+               "city":"city",
+               "locale":"locale",
+               "country":"country",
+               "postalCode":"postalCode",
+               "annualVolume":"annualVolume",
+               "cardsAccepted":"cardsAccepted",
+               "bank":"bank",
+               "bankContact":"bankContact",
+               "bankAddress":"bankAddress",
+               "bankCity":"bankCity",
+               "bankLocale":"bankLocale",
+               "bankCountry":"bankCountry",
+               "bankPostalCode":"bankPostalCode",
+               "bankPhone":"bankPhone",
+               "bankAccountNumber":"bankAccountNumber",
+               "bankRoutingNumber":"bankRoutingNumber",
+               "bankAccountName":"bankAccountName",
+               "bankAccountType":"bankAccountType",
+               "authorizedSignature":"authorizedSignature",
+               "signatureDate":"signatureDate",
+               "signeeDate":"signeeDate"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            
+
+    + Body
+
+            {
+            "dateStarted": "2017-03-14T16:06:32.379Z",
+            "status": "COMPLETE",
+            "dba": "dba",
+            "bankPostalCode": "bankPostalCode",
+            "signatureDate": "signatureDate",
+            "contactTitle": "contactTitle",
+            "primaryContact": "primaryContact",
+            "bankAddress": "bankAddress",
+            "contactPhone": "contactPhone",
+            "postalCode": "postalCode",
+            "annualVolume": "annualVolume",
+            "country": "country",
+            "bankLocale": "bankLocale",
+            "bankContact": "bankContact",
+            "bankPhone": "bankPhone",
+            "contactEmail": "contactEmail",
+            "address": "address",
+            "taxId": "taxId",
+            "city": "city",
+            "legalBusinessName": "legalBusinessName",
+            "bank": "bank",
+            "bankAccountNumber": "bankAccountNumber",
+            "cardsAccepted": "cardsAccepted",
+            "bankAccountName": "bankAccountName",
+            "bankAccountType": "bankAccountType",
+            "dateSubmitted": "2017-03-14T16:06:32.379Z",
+            "bankCity": "bankCity",
+            "locale": "locale",
+            "authorizedSignature": "authorizedSignature",
+            "sysid": 1025,
+            "bankRoutingNumber": "bankRoutingNumber",
+            "businessType": "businessType"
+            }
+
+## Shipping Applicant [/api/applicants/{sysid}/shipping-application/]
+
++ Parameters
+    + sysid
+
+### Get shipping application [GET]
+Gets shipping application associated with the application
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+        {
+            "status": "IN_PROGRESS",
+            "sysid": 1002,
+            "references": []
+        }
+
+### Update shipping application [POST]
+Updates shipping application associated with the 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+    
+    + Body
+    
+        
+            {
+               "businessRegistrationNumber":"businessRegistrationNumber",
+               "expirationDate":"2012-04-23T18:25:43",
+               "numberYearsInBusiness":"1",
+               "hasDeclaredBankruptcy":"hasDeclaredBankruptcy",
+               "preferredPayment":"preferredPayment",
+               "freightChargePerMonth":"1",
+               "freightDutyPerMonth":"1",
+               "desiredCreditLine":"desiredCreditLine",
+               "specialParticipation":"specialParticipation",
+               "authorizedSignature":"authorizedSignature",
+               "signatureDate":"signatureDate",
+               "signeeTitle":"signeeTitle",
+               "references":[
+                  {
+                     "name":"name",
+                     "title":"title",
+                     "phone":"phone",
+                     "address":"address",
+                     "city":"city",
+                     "locale":"locale",
+                     "country":"country",
+                     "postCode":"postCode"
+                  }
+               ]
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Authorization: Token <api-token>
+
+    + Body
+
+            {
+               "businessRegistrationNumber":"businessRegistrationNumber",
+               "expirationDate":"2012-04-23T18:25:43",
+               "numberYearsInBusiness":"1",
+               "hasDeclaredBankruptcy":"hasDeclaredBankruptcy",
+               "preferredPayment":"preferredPayment",
+               "freightChargePerMonth":"1",
+               "freightDutyPerMonth":"1",
+               "desiredCreditLine":"desiredCreditLine",
+               "specialParticipation":"specialParticipation",
+               "authorizedSignature":"authorizedSignature",
+               "signatureDate":"signatureDate",
+               "signeeTitle":"signeeTitle",
+               "references":[
+                  {
+                     "name":"name",
+                     "title":"title",
+                     "phone":"phone",
+                     "address":"address",
+                     "city":"city",
+                     "locale":"locale",
+                     "country":"country",
+                     "postCode":"postCode"
+                  }
+               ]
+            }
+
+## Marketing Applicant [/api/applicants/{sysid}/marketing-application/]
+
++ Parameters
+    + sysid
+
+### Get marketing application [GET]
+Gets marketing application associated with the application
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+        {
+            "dateStarted": "2017-03-14T16:06:32.379Z",
+            "status": "IN_PROGRESS",
+            "sysid": 1002,
+            "dateSubmitted": "2017-03-14T16:06:32.379Z"
+        }
+
+### Update marketing application [POST]
+Updates marketing application associated with the 
+
++ Request (application/json)
+    + Headers
+    
+            Authorization: Token <api-token>
+    
+    + Body
+
+            {  
+               "marketer":"marketer",
+               "clientId":"clientId",
+               "secretKey":"secretKey"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            
+
+    + Body
+
+            {  
+               "dateStarted":"2017-03-14T16:06:32.379Z",
+               "status":"COMPLETE",
+               "dateSubmitted":"2017-03-14T16:19:20.492Z",
+               "secretKey":"secretKey",
+               "sysid":1002,
+               "clientId":"clientId",
+               "marketer":"marketer"
+            }
+
+## Campaign [/api/campaigns/]
+
+### Get list campaigns [GET]
+Returns all campaigns
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Token <api-token>
+        
++ Response 200 (application/json)
+
+            [
+               {
+                  "leadsGenerated":121,
+                  "status":"ACTIVE",
+                  "costPerCustomer":21,
+                  "cost":21,
+                  "url":"2.com",
+                  "conversions":21,
+                  "promotionCode":"Update 26",
+                  "profit":21,
+                  "startDate":"2016-12-08T17:00:00Z",
+                  "totalRevenue":21,
+                  "endDate":"2016-12-07T17:00:00Z",
+                  "uniqueVisitors":12,
+                  "notes":[
+            
+                  ],
+                  "description":"21",
+                  "ownerName":"tes",
+                  "title":"wqwq",
+                  "roi":21,
+                  "expectedRevenue":21,
+                  "segments":[
+                     {
+                        "status":"ACTIVE",
+                        "dimension":"PURCHASES",
+                        "dateCreated":"2016-12-09T01:48:17.401Z",
+                        "sysid":69,
+                        "type":"SEGMENTATION",
+                        "name":"MyNewTarget"
+                     },
+                     {
+                        "status":"ACTIVE",
+                        "dimension":"PURCHASES",
+                        "dateCreated":"2016-12-05T20:18:49.562Z",
+                        "sysid":34,
+                        "type":"SEGMENTATION",
+                        "name":"myTarget"
+                     }
+                  ],
+                  "conversionCostPerCustomer":21,
+                  "activities":[
+            
+                  ],
+                  "sysid":1083
+               }
+            ]
+
+### Create campaign [POST]
+Create & return a new campaign
+
++ Request (application/json)
+    + Headers
+    
+            Authorization: Token <api-token>
+    
+    + Body
+
+            {
+               "title":"test title",
+               "description":"campaign description",
+               "ownerName":"owner name",
+               "startDate":1489587609,
+               "endDate":1489595609,
+               "conversionCostPerCustomer":10.0,
+               "conversions":10.0,
+               "leadsGenerated":1.0,
+               "cost":12.0,
+               "costPerCustomer":1.0,
+               "expectedRevenue":5.0,
+               "totalRevenue":1.0,
+               "profit":1.0,
+               "roi":1.0,
+               "promotionCode":"test code",
+               "uniqueVisitors":11021,
+               "url":"campaign.org"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            
+    + Body
+
+            {
+              "leadsGenerated":121,
+              "status":"ACTIVE",
+              "costPerCustomer":21,
+              "cost":21,
+              "url":"2.com",
+              "conversions":21,
+              "promotionCode":"Update 26",
+              "profit":21,
+              "startDate":"2016-12-08T17:00:00Z",
+              "totalRevenue":21,
+              "endDate":"2016-12-07T17:00:00Z",
+              "uniqueVisitors":12,
+              "notes":[
+        
+              ],
+              "description":"21",
+              "ownerName":"tes",
+              "title":"wqwq",
+              "roi":21,
+              "expectedRevenue":21,
+              "segments":[
+                 {
+                    "status":"ACTIVE",
+                    "dimension":"PURCHASES",
+                    "dateCreated":"2016-12-09T01:48:17.401Z",
+                    "sysid":69,
+                    "type":"SEGMENTATION",
+                    "name":"MyNewTarget"
+                 },
+                 {
+                    "status":"ACTIVE",
+                    "dimension":"PURCHASES",
+                    "dateCreated":"2016-12-05T20:18:49.562Z",
+                    "sysid":34,
+                    "type":"SEGMENTATION",
+                    "name":"myTarget"
+                 }
+              ],
+              "conversionCostPerCustomer":21,
+              "activities":[
+        
+              ],
+              "sysid":1083
+            }
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
